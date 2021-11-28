@@ -19,4 +19,23 @@ function take_snapshot() {
 console.log('ml5 verson:', ml5.verson);
 
 //js code importing model//
-classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/MMN5ylCeP/model.json',modelLoaded);
+classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/3qwBGsr-Z/model.json',modelLoaded);
+
+function modelLoaded () {
+    console.log("Model Loaded");
+}
+
+function check () {
+    img = document.getElementById("captured_image");
+    classifier.classify(img, gotResult);
+}
+
+function gotResult (error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("result_object").innerHTML = results[0].label;
+        document.getElementById("result_accuracy").innerHTML = results[0].confidence.toFixed(3);
+    }
+    }
